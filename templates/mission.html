@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.1/css/all.min.css">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <title>I-MARKET</title>
+</head>
+<body> 
+    <style>
+        body {
+          padding: 20px;
+          text-shadow: 2px 2px 4px rgb(0, 0, 0, 0.5);
+          font-size:1rem; 
+          color: whitesmoke;
+          font-weight: bold;
+          background-image: url("{{ url_for('static', filename='images/download (3) 11.jpg') }}");
+          background-size:cover;
+          background-position:center;
+          min-height:100vh;
+
+          
+        }
+      </style>
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Mission and Objectives</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('predictions') }}">Predictive Analysis</a></li>
+                <li><a href="{{ url_for('Recommendations') }}" >Recommendations</a></li>
+                <li><a href="{{ url_for('About_us') }}">About Us</a></li>
+                <li><a href="{{ url_for('Mission') }}">Mission & Objectives</a></li>
+                <!-- Add Logout button when the user is logged in -->
+            </ul>
+        </div>
+    </nav>
+
+
+<!-- Objectives of Machine Learning in Marketing -->
+<div class="card blue-grey darken-1 white-text">
+    <div class="card-content">
+        <h2 class="card-title">Objectives of Machine Learning in Marketing</h2>
+        <ul>
+            <li>Enhance customer segmentation and targeting for more personalized marketing.</li>
+            <li>Improve customer retention through predictive analytics and personalized recommendations.</li>
+            <li>Optimize advertising spend and marketing campaigns for better ROI.</li>
+            <!-- Add more objectives as needed -->
+        </ul>
+    </div>
+</div>
+
+<!-- Importance of Sales Forecasting and Prediction using AI -->
+<div class="card blue-grey darken-1 white-text">
+    <div class="card-content">
+        <h2 class="card-title">Importance of Sales Forecasting and Prediction using AI</h2>
+        <p>Sales forecasting and prediction using AI play a vital role in:</p>
+        <ul>
+            <li>Helping businesses make informed decisions about inventory, staffing, and resource allocation.</li>
+            <li>Enabling proactive responses to market fluctuations and changing consumer behaviors.</li>
+            <li>Enhancing competitiveness by optimizing sales strategies and pricing.</li>
+            <!-- Add more points as needed -->
+        </ul>
+    </div>
+</div>
+
+<!-- Application's Objective -->
+<div class="card blue-grey darken-1 white-text">
+    <div class="card-content">
+        <h2 class="card-title">Our Application's Objective</h2>
+        <p>Our application aims to empower businesses with AI-driven insights for marketing and sales forecasting. We strive to provide a user-friendly platform that:</p>
+        <ul>
+            <li>Assists in identifying the most effective marketing channels for increased sales.</li>
+            <li>Predicts sales based on budget inputs, enabling data-driven decision-making.</li>
+            <li>Offers valuable recommendations and predictions based on data analysis.</li>
+            <!-- Add more points as needed -->
+        </ul>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="{{ url_for('static', filename='alpine.min.js') }}" defer></script>
+
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>

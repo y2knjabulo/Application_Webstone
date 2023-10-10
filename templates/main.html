@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>I-MARKET</title>
+    <!-- Include other CSS and JS files as needed -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.1/css/all.min.css">
+    <script src="{{ url_for('static', filename='home.js') }}"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    
+    
+</head>
+
+<body x-data="appData()">
+    <style>
+        body {
+            padding: 20px;
+            text-shadow: 2px 2px 4px rgb(0, 0, 0, 0.5);
+            font-size: 1rem;
+            color: whitesmoke;
+            font-weight: bold;
+            background-image: url("{{ url_for('static', filename='images/download (3) 11.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+
+
+        }
+    </style>
+    <!-- Navbar and other common elements go here -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">I-MARKET</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('predictions') }}">Predictive Analysis</a></li>
+                <li><a href="{{ url_for('Recommendations') }}" >Recommendations</a></li>
+                <li><a href="{{ url_for('About_us') }}">About Us</a></li>
+                <li><a href="{{ url_for('Mission') }}">Mission & Objectives</a></li>
+
+                <!-- Add Logout button when the user is logged in -->
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <!-- Footer and other common elements go here -->
+
+    <h1></h1>
+    <form id="login-form">
+        <div class="input-field">
+            <input id="username" type="text" class="validate" x-model="username">
+            <label for="username">Username</label>
+        </div>
+        <div class="input-field">
+            <input id="password" type="password" class="validate" x-model="password">
+            <label for="password">Password</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action" x-on:click="login">Login
+            <button x-on:click="logout" x-show="username">Logout</button>
+        </button>
+    </form>
+
+    <div class="container">
+        <div class="col s6 ">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <h1 class="center-align">Data Trend Analysis</h1>
+                    <a href="Home.html">Home features</a>
+                    <td><img src="{{ url_for('static', filename='images/download (3).png') }}" width="300" a href="Home.html">
+                    </td>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="col s6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <h1 class="center-align">Predictive Analysis</h1>
+                    <a href="predictions.html">Predictions</a>
+                    <td><img src="{{ url_for('static', filename='images/download (1).jpg') }}" width="300" a href="predrctions.html"></td>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="col s6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <h1 class="center-align">Data Based Recommendations</h1>
+                    <a href="Recommendations.html">Recommendations</a>
+                    <td><img src="{{ url_for('static', filename='images/images (3).jpg') }}" width="300" a href="Recommendations.html">
+                    </td>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{{ url_for('static', filename='home.js') }}"></script>
+    <script>
+        // Handle login form submission
+        // document.querySelector('#login-form').addEventListener('submit', function(event) {
+        //     event.preventDefault();
+        //     const username = document.querySelector('#username').value;
+        //     const password = document.querySelector('#password').value;
+    
+            // Implement your login logic here, e.g., send a POST request to the server
+            // If login is successful, you can redirect the user to the dashboard
+            // Example:
+            // fetch('/login', {
+            //     method: 'POST',
+            //     body: JSON.stringify({ username, password }),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     if (data.success) {
+            //         window.location.href = '/dashboard';
+            //     } else {
+            //         alert('Login failed. Please check your credentials.');
+            //     }
+            // });
+        // });
+    </script>
+
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    &copy; 2023 I-MARKET(PTY)LTD. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

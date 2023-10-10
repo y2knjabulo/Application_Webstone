@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I-MARKET Predictions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.1/css/all.min.css">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <script src="{{ url_for('static', filename='home.js') }}" defer></script>
+</head>
+
+<body>
+    <style>
+        body {
+            padding: 20px;
+            text-shadow: 2px 2px 4px rgb(0, 0, 0, 0.5);
+            font-size: 1rem;
+            color: whitesmoke;
+            font-weight: bold;
+            background-image: url("{{ url_for('static', filename='images/download (3) 11.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+        }
+    </style>
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Predictive Analysis</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{{ url_for('index') }}">Login</a></li>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('Recommendations') }}">Recommendations</a></li>
+                <li><a href="{{ url_for('About_us') }}">About Us</a></li>
+                <li><a href="{{ url_for('Mission') }}">Mission & Objectives</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Predict Sales Section -->
+    <!-- Predict Sales Section -->
+    <div x-data="appData()" class="container">
+        <h1 class="center-align">Predict Sales</h1>
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <form>
+                            <div class="input-field">
+                                <input type="text" id="marketingAvenue" x-model="marketingAvenue" required>
+                                <label for="marketingAvenue">Marketing Avenue</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="number" id="budget1" x-model="budget1" required>
+                                <label for="budget1">Budget 1</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="number" id="budget2" x-model="budget2" required>
+                                <label for="budget2">Budget 2</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="number" id="budget3" x-model="budget3" required>
+                                <label for="budget3">Budget 3</label>
+                            </div>
+                            <button class="btn waves-effect waves-light" @click="predictSales()">Predict Sales</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Display Predicted Sales -->
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <h3>Predicted Sales:</h3>
+                        <!-- Display predicted sales here -->
+                        <p x-text="predictedSales"></p>
+                        <p x-text="marketingAvenue"></p>
+                        <!-- Error message for undefined predicted sales -->
+                        <p id="errorMessage" class="red-text" style="display: none;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="{{ url_for('static', filename='home.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

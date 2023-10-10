@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I-MARKET Recommendations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="{{ url_for('static', filename='home.js') }}" defer></script>
+</head>
+
+<body>
+    <style>
+        body {
+            padding: 20px;
+            text-shadow: 2px 2px 4px rgb(0, 0, 0, 0.5);
+            font-size: 1rem;
+            color: whitesmoke;
+            font-weight: bold;
+            background-image: url("{{ url_for('static', filename='images/download (3) 11.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+        }
+    </style>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Recommendations</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{{ url_for('index') }}">Login</a></li>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('Recommendations') }}">Recommendations</a></li>
+                <li><a href="{{ url_for('About_us') }}">About Us</a></li>
+                <li><a href="{{ url_for('Mission') }}">Mission & Objectives</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Recommendations Section -->
+    <div class="container">
+        <h1 class="center-align">Recommendations</h1>
+
+        <!-- Data Trend Analysis Section -->
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <h3>Data Trend Analysis</h3>
+                        <p>
+                            Data trend analysis revealed important insights into the relationship between
+                            marketing avenues and sales. Below are the key findings:
+                        </p>
+                        <div id="recommendations-container" class="mt-3">
+                            <h2>Recommendations</h2>
+                            <p>Based on the data analysis, allocate your budget to the marketing avenue with the highest
+                                positive correlation with Sales.</p>
+                            <p>Here are the correlations:</p>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Marketing Avenue</th>
+                                        <th>Correlation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TV</td>
+                                        <td>0.15</td> <!-- Hardcoded correlation value for TV -->
+                                    </tr>
+                                    <tr>
+                                        <td>Radio</td>
+                                        <td>0.7</td> <!-- Hardcoded correlation value for Radio -->
+                                    </tr>
+                                    <tr>
+                                        <td>Social Media</td>
+                                        <td>0.4</td> <!-- Hardcoded correlation value for Social Media -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h2>Data Trend Analysis Results</h2>
+                            <p>Highest Sales Marketing Avenue: TV</p> <!-- Hardcoded highest sales avenue -->
+                            <p>Least Sales Marketing Avenue: Social Media </p> <!-- Hardcoded least sales avenue -->
+                            <p>Average Sales: 62568.028</p> <!-- Hardcoded average sales value -->
+                            <p> Average Budget Amount: 26000.56</p> <!-- Hardcoded budget amount -->
+                        </div>
+                        <img id="chart-image" src="" alt="Correlation Chart" class="img-fluid mt-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Predictive Analysis Section -->
+        <!-- <div class="row">
+            <div class="col s12 m12">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <h3>Predictive Analysis</h3>
+                        <p>
+                            Predictive analysis allows us to make informed decisions about budget allocation.
+                            Here are the recommendations based on your input:
+                        </p>
+
+                        <!-- Display predictive analysis results here -->
+        <!-- <p>
+                            - For the marketing avenue {{ marketingAvenue }}, with a budget of ${{ budgetAmount }},
+                            the predicted sales are ${{ predictedSales }}.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Additional Actions Section -->
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <h3>Additional Actions</h3>
+                        <p>
+                            If you find the information given by the I-market Web app valuable you can explore the below for effective Marketing strategy. 
+                            You can find valuable resources on the following external websites:
+                        </p>
+                        <p>
+                            - <a href="https://thethrivingsmallbusiness.com/implementing-business-strategy/amp/"
+                                target="_blank">Business Strategy & Marketing</a>
+                        </p>
+                        <p>
+                            - <a href="https://www.business.qld.gov.au/running-business/growing-business/trend-analysis"
+                                target="_blank">Trend Analysis</a>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
