@@ -14,7 +14,7 @@ from wtforms.validators import InputRequired
 from werkzeug.utils import secure_filename
 import pandas as pd
 import warnings
-from sklearn.exceptions import InconsistentVersionWarning
+# from sklearn.exceptions import InconsistentVersionWarning
 # from ml_func import perform_data_analysis, create_correlation_chart, encode_chart_image
 import ml_func  # Importing your ml_func module
 
