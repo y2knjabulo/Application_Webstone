@@ -18,7 +18,7 @@ import warnings
 # from ml_func import perform_data_analysis, create_correlation_chart, encode_chart_image
 import ml_func  # Importing your ml_func module
 
-warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
+# warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
 os.chmod('static/files', 0o755)  # Replace 0o755 with the desired permission mode
 # Print the current working directory
 print("Current working directory:", os.getcwd())
