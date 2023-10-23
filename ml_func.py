@@ -30,25 +30,7 @@ def load_trained_model(model_path):
         return None
 
 # Define a function to make predictions using the loaded model
-def predict_sales(data, dataset):
-    try:
-        # Load the machine learning model
-        model = pickle.load(open("modelbeta.pkl", "rb"))
-        # Extract input values from data
-        marketing_avenue = data.get("marketingAvenue")
-        
-        # Filter the dataset to select rows with the same marketing avenue
-        filtered_data = dataset[dataset['MarketingAvenue'] == marketing_avenue]
-        
-        # Extract the budget amounts for the selected marketing avenue
-        budget_amounts = filtered_data[['Budget1', 'Budget2', 'Budget3']].values.tolist()
-        
-        # Calculate the predicted sales based on the budget amounts
-        predicted_sales = model.predict(budget_amounts).tolist()
-        
-        return {"predicted_sales": predicted_sales, "marketing_avenue": marketing_avenue}
-    except Exception as e:
-        return {"error": str(e)}
+
 
 
 

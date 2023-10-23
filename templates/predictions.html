@@ -65,12 +65,15 @@
                                 <input type="number" id="budget3" x-model="budget3" required>
                                 <label for="budget3">Budget 3</label>
                             </div>
-                            <button class="btn waves-effect waves-light" @click="predictSales()">Predict Sales</button>
+                            <!-- Inside the <form> element -->
+                            <button class="btn waves-effect waves-light" @click="predictSales">Predict Sales</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
+
 
         <!-- Display Predicted Sales -->
         <div class="row">
@@ -87,13 +90,13 @@
                 </div>
             </div>
         </div>
-    </div>
 
 
 
-    <script src="{{ url_for('static', filename='home.js') }}"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="{{ url_for('static', filename='home.js') }}"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>

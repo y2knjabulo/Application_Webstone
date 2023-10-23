@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory, flash
+from flask import Flask, render_template, request, jsonify
 import os
 import csv
 import matplotlib
 matplotlib.use('Agg')  # Run Matplotlib in non-interactive mode
-
+import pickle
 import seaborn as sns
 import io
 import base64
@@ -108,11 +108,7 @@ def upload_dataset():
             dataset_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'uploaded_dataset.csv')
             file.save(dataset_filename)
 
-            # Perform dataset processing here if needed
-            # For example, you can read and analyze the uploaded CSV file
-            # and store the results in a variable
-
-            # Example: Reading the CSV file
+            #  dataset processing here 
             analysis_results = []
             with open(dataset_filename, 'r') as csvfile:
                 csvreader = csv.reader(csvfile)
@@ -189,34 +185,26 @@ def data_trend_analysis_results():
 def predict_sales():
     try:
         data = request.json
-        dataset_path = data.get("dataset")  # Get the dataset path from the request data
+        marketing_avenue = data.get("marketingAvenue")  # Get the marketing avenue from the request data
+        budget_amounts = data.get("budgetAmounts")  # Get budget amounts from the request data
 
-        # Load the dataset
-        dataset = pd.read_csv(dataset_path)
+        # Make sure budget_amounts is a list of three values
+        if not isinstance(budget_amounts, list) or len(budget_amounts) != 3:
+            return jsonify({"error": "Invalid budget amounts"})
 
-        # Extract input values from data
-        marketing_avenue = data.get("marketingAvenue")
-        current_budget = data.get("budgetAmount")
+        # Load the machine learning model
+        model = pickle.load(open("modelbeta.pkl", "rb"))
 
-        # Filter the dataset to select rows with the same marketing avenue
-        filtered_data = dataset[dataset['MarketingAvenue'] == marketing_avenue]
+        # Prepare the input data for prediction
+        input_data = [budget_amounts]  # List containing budget amounts
 
-        # Extract the sales values for the selected marketing avenue
-        sales_data = filtered_data['Sales'].values.tolist()
+        # Make the prediction
+        predicted_sales = model.predict(input_data)
 
-        # Calculate the average of the last two budgets (if available)
-        previous_budgets = sales_data[-2:]
-        if len(previous_budgets) < 2:
-            previous_budget_avg = 0  # Set to 0 if fewer than two budgets available
-        else:
-            previous_budget_avg = sum(previous_budgets) / 2
-
-        # Calculate the predicted sales
-        predicted_sales = current_budget + previous_budget_avg
-
-        return jsonify({"predicted_sales": predicted_sales, "marketing_avenue": marketing_avenue})
+        return jsonify({"predicted_sales": predicted_sales[0], "marketingAvenue": marketing_avenue})
     except Exception as e:
         return jsonify({"error": str(e)})
+
 
 
 

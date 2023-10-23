@@ -82,6 +82,7 @@ lm.fit(X_train, Y_train)
 import pickle
 pickle.dump(lm, open('modelbeta.pkl', 'wb'))
 
-#making prediction 
 model = pickle.load(open("modelbeta.pkl", "rb"))
-print (model.predict([[30000, 40000, 60000]]))
+predicted_sales = model.predict([[]])  # Replace these values with the user's input
+
+print(predicted_sales)
