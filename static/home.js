@@ -9,12 +9,13 @@ document.addEventListener("alpine:init", () => {
             isPredictionSuccess: false,
             isTryAgainVisible: false,
             marketingAvenue: '',
-            budgetAmount: '',
+            budgetAmounts: '',
             predictedSales: '',
             datasetProperties: null,
             chartData: null,
             analysisResults: '', // Define analysisResults
-            // datasetPath: '{{ session("dataset_path") }}',
+            username: "", // Initialize username
+            password: "",
 
             loadDataset() {
                 // Get the input element
@@ -69,12 +70,12 @@ document.addEventListener("alpine:init", () => {
                     'Radio': 0.5,
                     'Social Media': 0.6
                 };
-            
+
                 const highestSalesAvenue = 'TV';
                 const leastSalesAvenue = 'Radio';
                 const averageSales = 50000;
                 const budgetAmount = 10000;
-            
+
                 const recommendationsContainer = document.getElementById('recommendations-container');
                 recommendationsContainer.innerHTML = `
                     <h2>Recommendations</h2>
@@ -109,7 +110,7 @@ document.addEventListener("alpine:init", () => {
                     <p>Budget Amount: ${budgetAmount}</p>
                 `;
             },
-            
+
             showCorrelationImage() {
                 const chartImage = document.getElementById('chart-image');
                 chartImage.style.display = 'block'; // Display the image
@@ -208,29 +209,26 @@ document.addEventListener("alpine:init", () => {
             },
 
             predictSales() {
-                // Assuming you have the prediction logic implemented on the server
                 const predictionData = {
-                    marketingAvenue: this.marketingAvenue,
-                    budgetAmount: this.budgetAmount,
+                    budgetAmounts: [this.budget1, this.budget2, this.budget3],
                 };
 
-                axios.post('/predict_sales', predictionData, { data: predictionData, dataset: 'static/files/uploaded_dataset.csv' }) // Pass the dataset path)
+                axios.post('/predict_sales', predictionData)
                     .then((response) => {
-                        console.log(response); // Add this line to log the response
+                        console.log(response);
                         if (response.data.hasOwnProperty('predicted_sales')) {
                             this.predictedSales = `Predicted Sales: $${response.data.predicted_sales} for ${response.data.marketing_avenue}`;
                         } else {
-                            this.predictedSales = ''; // Clear any previous result
+                            this.predictedSales = '';
                             const errorMessage = document.getElementById('errorMessage');
                             errorMessage.textContent = 'Error: Predicted sales could not be calculated.';
                             errorMessage.style.display = 'block';
                             console.error('Error predicting sales:', response.data.error);
                             this.predictedSales = `Error: ${response.data.error}`;
 
-                            // Hide the error message after 1 minute (60000 milliseconds)
                             setTimeout(() => {
                                 errorMessage.style.display = 'none';
-                            }, 60000);
+                            }, 90000);
                         }
                     })
                     .catch((error) => {
@@ -238,7 +236,43 @@ document.addEventListener("alpine:init", () => {
                         this.predictedSales = `Error: ${error.message}`;
                     });
             },
-
+            logout() {
+                // Implement your logout logic here
+                // Send a request to the server to log the user out
+                axios.post('/logout')
+                    .then(response => {
+                        if (response.data.success) {
+                            // User is logged out
+                            this.username = "";
+                        } else {
+                            // Logout failed
+                            alert('Logout failed. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        alert('Logout failed. Please try again.');
+                    });
+            },
+            login() {
+                // Implement your login logic here
+                // Send a POST request to your server to handle user authentication
+                axios.post('/login', {
+                    username: this.username,
+                    password: this.password
+                })
+                    .then(response => {
+                        if (response.data.success) {
+                            // User is logged in
+                            this.username = response.data.username;
+                        } else {
+                            // Login failed
+                            alert('Login failed. Please check your credentials.');
+                        }
+                    })
+                    .catch(error => {
+                        alert('Login failed. Please check your credentials.');
+                    });
+            },
 
 
             getDataTrendAnalysis() {

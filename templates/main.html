@@ -47,22 +47,30 @@
 
 
 
-    <!-- Footer and other common elements go here -->
-
-    <h1></h1>
-    <form id="login-form">
-        <div class="input-field">
-            <input id="username" type="text" class="validate" x-model="username">
-            <label for="username">Username</label>
+    <!-- User Login Form -->
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">User Login</span>
+                        <form id="login-form">
+                            <div class="input-field">
+                                <input id="username" type="text" class="validate" x-model="username" autocomplete="current-username">
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="password" type="password" class="validate" x-model="password" autocomplete="current-password">
+                                <label for="password">Password</label>
+                            </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action" x-on:click="login">Login
+                                <button x-on:click="logout" x-show="username">Logout</button>
+                            </button>
+                        </form>
+                </div>
+            </div>
         </div>
-        <div class="input-field">
-            <input id="password" type="password" class="validate" x-model="password">
-            <label for="password">Password</label>
-        </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action" x-on:click="login">Login
-            <button x-on:click="logout" x-show="username">Logout</button>
-        </button>
-    </form>
+    </div>
 
     <div class="container">
         <div class="col s6 ">
@@ -108,33 +116,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{ url_for('static', filename='home.js') }}"></script>
-    <script>
-        // Handle login form submission
-        // document.querySelector('#login-form').addEventListener('submit', function(event) {
-        //     event.preventDefault();
-        //     const username = document.querySelector('#username').value;
-        //     const password = document.querySelector('#password').value;
-    
-            // Implement your login logic here, e.g., send a POST request to the server
-            // If login is successful, you can redirect the user to the dashboard
-            // Example:
-            // fetch('/login', {
-            //     method: 'POST',
-            //     body: JSON.stringify({ username, password }),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     if (data.success) {
-            //         window.location.href = '/dashboard';
-            //     } else {
-            //         alert('Login failed. Please check your credentials.');
-            //     }
-            // });
-        // });
-    </script>
 
     <footer class="page-footer">
         <div class="container">

@@ -48,20 +48,9 @@ def load_trained_model(model_path):
         return None
 
 # Define your ml_func-based prediction function
-def make_prediction(input_data, model):
-    try:
-        if model:
-            # Call the make_prediction function from ml_func
-            prediction = ml_func.make_prediction(input_data, model)
-            return prediction
-        else:
-            return None
-    except Exception as e:
-        print(f"Error making prediction: {str(e)}")
-        return None
 
 @app.route("/")
-def index():
+def indeX():
     return render_template("main.html")
 
 @app.route("/Home.html")
@@ -180,12 +169,10 @@ def data_trend_analysis_results():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-
 @app.route("/predict_sales", methods=['POST'])
 def predict_sales():
     try:
         data = request.json
-        marketing_avenue = data.get("marketingAvenue")  # Get the marketing avenue from the request data
         budget_amounts = data.get("budgetAmounts")  # Get budget amounts from the request data
 
         # Make sure budget_amounts is a list of three values
@@ -201,11 +188,46 @@ def predict_sales():
         # Make the prediction
         predicted_sales = model.predict(input_data)
 
-        return jsonify({"predicted_sales": predicted_sales[0], "marketingAvenue": marketing_avenue})
+        return jsonify({"predicted_sales": predicted_sales[0]})
     except Exception as e:
         return jsonify({"error": str(e)})
 
+# Mock user data (for demonstration purposes)
+users = {
+    "demo_user": "demo_password"
+}
 
+# Track logged-in users
+logged_in_users = set()
+
+@app.route('/')
+def index():
+    if 'username' in request.cookies:
+        username = request.cookies.get('username')
+        return f'Hello, {username}! <a href="/logout">Logout</a>'
+    return 'Welcome to the main page. <a href="/login">Login</a>'
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    if username in users and users[username] == password:
+        logged_in_users.add(username)
+        response = jsonify({'success': True, 'username': username})
+        response.set_cookie('username', username)
+        return response
+    return jsonify({'success': False})
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    username = request.cookies.get('username')
+    if username in logged_in_users:
+        logged_in_users.remove(username)  # Remove the user from the set of logged-in users
+        response = jsonify({'success': True, 'username': username})
+        response.delete_cookie('username')  # Remove the username cookie
+        return response
+    return jsonify({'success': False, 'message': 'User not logged in'})
 
 
 

@@ -30,7 +30,24 @@ def load_trained_model(model_path):
         return None
 
 # Define a function to make predictions using the loaded model
+# Make predictions based on input data
+def predict_sales(budget_amounts):
+    try:
+        # Load the machine learning model
+        model = pickle.load(open("modelbeta.pkl", "rb"))
 
+        # Prepare the input data for prediction
+        input_data = [budget_amounts]  # List containing budget amounts
+
+        # Make the prediction
+        predicted_sales = model.predict(input_data)
+
+        if predicted_sales is not None and len(predicted_sales) > 0:
+            return {"predicted_sales": predicted_sales[0]}
+        else:
+            return {"error": "Prediction result is invalid."}
+    except Exception as e:
+        return {"error": str(e)}
 
 
 
