@@ -83,6 +83,6 @@ import pickle
 pickle.dump(lm, open('modelbeta.pkl', 'wb'))
 
 model = pickle.load(open("modelbeta.pkl", "rb"))
-predicted_sales = model.predict([[]])  # Replace these values with the user's input
+predicted_sales = model.predict([[6000, 45000, 65000]])  # Replace these values with the user's input
 
 print(predicted_sales)

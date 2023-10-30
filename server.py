@@ -169,26 +169,19 @@ def data_trend_analysis_results():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-@app.route("/predict_sales", methods=['POST'])
+dummy_predicted_sales = [101000.67, 155000.65, 200000.00]  # Your dummy predicted sales data
+
+@app.route('/predict_sales', methods=['POST'])
 def predict_sales():
     try:
         data = request.json
-        budget_amounts = data.get("budgetAmounts")  # Get budget amounts from the request data
+        budget1 = data.get("budget1")
+        budget2 = data.get("budget2")
+        budget3 = data.get("budget3")
 
-        # Make sure budget_amounts is a list of three values
-        if not isinstance(budget_amounts, list) or len(budget_amounts) != 3:
-            return jsonify({"error": "Invalid budget amounts"})
+        selected_predicted_sales = dummy_predicted_sales[sum([budget1, budget2, budget3]) % len(dummy_predicted_sales)]
 
-        # Load the machine learning model
-        model = pickle.load(open("modelbeta.pkl", "rb"))
-
-        # Prepare the input data for prediction
-        input_data = [budget_amounts]  # List containing budget amounts
-
-        # Make the prediction
-        predicted_sales = model.predict(input_data)
-
-        return jsonify({"predicted_sales": predicted_sales[0]})
+        return jsonify({"predicted_sales": selected_predicted_sales})
     except Exception as e:
         return jsonify({"error": str(e)})
 

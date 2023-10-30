@@ -210,14 +210,16 @@ document.addEventListener("alpine:init", () => {
 
             predictSales() {
                 const predictionData = {
-                    budgetAmounts: [this.budget1, this.budget2, this.budget3],
+                    budget1: parseFloat(this.budget1), // Parse the input as a float
+                    budget2: parseFloat(this.budget2),
+                    budget3: parseFloat(this.budget3),
                 };
-
+            
                 axios.post('/predict_sales', predictionData)
                     .then((response) => {
                         console.log(response);
                         if (response.data.hasOwnProperty('predicted_sales')) {
-                            this.predictedSales = `Predicted Sales: $${response.data.predicted_sales} for ${response.data.marketing_avenue}`;
+                            this.predictedSales = `Predicted Sales: $${response.data.predicted_sales}`;
                         } else {
                             this.predictedSales = '';
                             const errorMessage = document.getElementById('errorMessage');
@@ -225,7 +227,7 @@ document.addEventListener("alpine:init", () => {
                             errorMessage.style.display = 'block';
                             console.error('Error predicting sales:', response.data.error);
                             this.predictedSales = `Error: ${response.data.error}`;
-
+            
                             setTimeout(() => {
                                 errorMessage.style.display = 'none';
                             }, 90000);
@@ -236,6 +238,7 @@ document.addEventListener("alpine:init", () => {
                         this.predictedSales = `Error: ${error.message}`;
                     });
             },
+            
             logout() {
                 // Implement your logout logic here
                 // Send a request to the server to log the user out
