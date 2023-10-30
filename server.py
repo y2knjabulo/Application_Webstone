@@ -149,12 +149,12 @@ def data_trend_analysis_results():
         # Hard-coded data for data trend analysis
         correlation_data = {
             'TV': 0.7,
-            'Radio': 0.5,
+            'Radio': 0.8,
             'Social Media': 0.6
         }
 
         highest_sales_avenue = 'TV'
-        least_sales_avenue = 'Radio'
+        least_sales_avenue = 'Social Media'
         average_sales = 50000
         budget_amount = 10000
 
@@ -169,7 +169,12 @@ def data_trend_analysis_results():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-dummy_predicted_sales = [101000.67, 155000.65, 200000.00]  # Your dummy predicted sales data
+# Define dummy predicted sales data
+dummy_predicted_sales = {
+    "TV": [100000.67 - 1500000.65],
+    "Radio": [50000.45 - 98000.50],
+    "Social Media": [350000.78 - 68000.92],
+}
 
 @app.route('/predict_sales', methods=['POST'])
 def predict_sales():
@@ -178,12 +183,22 @@ def predict_sales():
         budget1 = data.get("budget1")
         budget2 = data.get("budget2")
         budget3 = data.get("budget3")
+        marketing_avenue = data.get("marketingAvenue")
 
-        selected_predicted_sales = dummy_predicted_sales[sum([budget1, budget2, budget3]) % len(dummy_predicted_sales)]
+        # Use the budget amounts for prediction
+        input_data = [budget1, budget2, budget3]
 
-        return jsonify({"predicted_sales": selected_predicted_sales})
+        # Return at least two possible predicted sales based on marketing avenue
+        if marketing_avenue in dummy_predicted_sales:
+            possible_sales = dummy_predicted_sales[marketing_avenue]
+        else:
+            possible_sales = []
+
+        return jsonify({"possible_predicted_sales": possible_sales})
+
     except Exception as e:
         return jsonify({"error": str(e)})
+
 
 # Mock user data (for demonstration purposes)
 users = {

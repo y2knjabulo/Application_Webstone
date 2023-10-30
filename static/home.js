@@ -8,9 +8,13 @@ document.addEventListener("alpine:init", () => {
             isDataAnalysis: false,
             isPredictionSuccess: false,
             isTryAgainVisible: false,
+            // budgetAmounts: '',
+            budget1: 0,
+            budget2: 0,
+            budget3: 0,
             marketingAvenue: '',
-            budgetAmounts: '',
-            predictedSales: '',
+            possiblePredictedSales: [],
+            predictedSales: "",
             datasetProperties: null,
             chartData: null,
             analysisResults: '', // Define analysisResults
@@ -209,36 +213,31 @@ document.addEventListener("alpine:init", () => {
             },
 
             predictSales() {
+                event.preventDefault()
                 const predictionData = {
-                    budget1: parseFloat(this.budget1), // Parse the input as a float
-                    budget2: parseFloat(this.budget2),
-                    budget3: parseFloat(this.budget3),
+                    budgetAmounts: [this.budget1, this.budget2, this.budget3],
+                    marketingAvenue: this.marketingAvenue,
                 };
-            
+
                 axios.post('/predict_sales', predictionData)
                     .then((response) => {
-                        console.log(response);
-                        if (response.data.hasOwnProperty('predicted_sales')) {
-                            this.predictedSales = `Predicted Sales: $${response.data.predicted_sales}`;
+                        console.log('Response:', response); // Log the response to the console
+                        if (response.data.hasOwnProperty('possible_predicted_sales')) {
+                            this.possiblePredictedSales = response.data.possible_predicted_sales;
                         } else {
                             this.predictedSales = '';
                             const errorMessage = document.getElementById('errorMessage');
                             errorMessage.textContent = 'Error: Predicted sales could not be calculated.';
                             errorMessage.style.display = 'block';
-                            console.error('Error predicting sales:', response.data.error);
-                            this.predictedSales = `Error: ${response.data.error}`;
-            
-                            setTimeout(() => {
-                                errorMessage.style.display = 'none';
-                            }, 90000);
                         }
                     })
                     .catch((error) => {
                         console.error('Error predicting sales:', error);
-                        this.predictedSales = `Error: ${error.message}`;
+                        this.possiblePredictedSales = `Error: ${error.message}`;
                     });
             },
-            
+
+
             logout() {
                 // Implement your logout logic here
                 // Send a request to the server to log the user out

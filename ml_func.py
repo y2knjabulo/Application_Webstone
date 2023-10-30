@@ -31,13 +31,24 @@ def load_trained_model(model_path):
 
 # Define a function to make predictions using the loaded model
 # Make predictions based on input data
-def predict_sales(budget1, budget2, budget3):
+dummy_predicted_sales = {
+    "TV": [10000.6 - 150000.65],
+    "Radio": [50000.45 - 98000.50],
+    "Social Media": [35000.78 - 68000.92],
+}
+def predict_sales(budget_amounts, marketing_avenue):
     try:
-        # For the dummy data, simply sum the budgets
-        predicted_sales = budget1 + budget2 + budget3
-        return {"predicted_sales": predicted_sales}
+        # Check marketing avenue and return possible predicted sales based on dummy data
+        if marketing_avenue in dummy_predicted_sales:
+            possible_sales = dummy_predicted_sales[marketing_avenue]
+        else:
+            possible_sales = []
+
+        return {"possible_predicted_sales": possible_sales}
+
     except Exception as e:
         return {"error": str(e)}
+
 
 
 #function to perform data analysis (correlation matrix in visual format)
